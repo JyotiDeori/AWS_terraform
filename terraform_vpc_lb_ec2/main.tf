@@ -91,24 +91,6 @@ resource "aws_s3_bucket_ownership_controls" "example" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "example" {
-  bucket = aws_s3_bucket.mybucket.id
-
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
-}
-
-resource "aws_s3_bucket_acl" "example" {
-  depends_on = [
-    aws_s3_bucket_ownership_controls.example,
-    aws_s3_bucket_public_access_block.example,
-  ]
-
-  bucket = aws_s3_bucket.mybucket.id
-  acl    = "public-read"
-}
 
 resource "aws_instance" "webserver1" {
   ami                    = "ami-0fc5d935ebf8bc3bc"
